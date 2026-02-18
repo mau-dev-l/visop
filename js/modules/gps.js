@@ -1,10 +1,8 @@
-// frontend/js/modules/gps.js
+// js/modules/gps.js
 
 export function setupGPS(map) {
-    console.log("Módulo GPS iniciado (Controles en Mapa)");
-
-    // Referencias a los nuevos botones en el mapa
     const btnGPS = document.getElementById('btn-map-gps');
+    const containerClean = document.getElementById('container-clean-gps');
     const btnClean = document.getElementById('btn-map-clean-gps');
 
     if (!btnGPS) return;
@@ -12,82 +10,44 @@ export function setupGPS(map) {
     let userMarker = null;
     let userCircle = null;
 
-    // --- 1. FUNCIÓN GLOBAL PARA LIMPIAR GPS ---
+    // Función para limpiar rastro
     window.limpiarGPS = function() {
-        if (userMarker) {
-            map.removeLayer(userMarker);
-            userMarker = null;
-        }
-        if (userCircle) {
-            map.removeLayer(userCircle);
-            userCircle = null;
-        }
+        if (userMarker) map.removeLayer(userMarker);
+        if (userCircle) map.removeLayer(userCircle);
+        userMarker = null;
+        userCircle = null;
         
-        if (btnClean) btnClean.style.display = 'none';
-        
+        if (containerClean) containerClean.style.display = 'none';
         btnGPS.disabled = false;
-        btnGPS.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> GPS';
-        
-        console.log("GPS limpiado.");
+        console.log("GPS Limpiado");
     };
 
-    // --- 2. ACTIVAR GPS ---
     btnGPS.addEventListener('click', () => {
-        if (!navigator.geolocation) {
-            alert("Tu navegador no soporta geolocalización.");
-            return;
-        }
+        if (!navigator.geolocation) return alert("Sin soporte GPS");
 
-        // Limpiar búsquedas o rastros previos
-        if (window.limpiarBusqueda) window.limpiarBusqueda();
-        window.limpiarGPS();
-
-        const originalContent = '<i class="fa-solid fa-location-crosshairs"></i> GPS';
-        btnGPS.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ...';
         btnGPS.disabled = true;
+        
+        navigator.geolocation.getCurrentPosition((pos) => {
+            const { latitude, longitude, accuracy } = pos.coords;
+            map.flyTo([latitude, longitude], 17);
 
-        const options = {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
-        };
+            // Limpiar previo si existe
+            if (userMarker) map.removeLayer(userMarker);
+            if (userCircle) map.removeLayer(userCircle);
 
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const { latitude, longitude, accuracy } = position.coords;
+            userMarker = L.marker([latitude, longitude]).addTo(map).bindPopup("Usted está aquí").openPopup();
+            userCircle = L.circle([latitude, longitude], { radius: accuracy, color: '#0d6efd' }).addTo(map);
 
-                map.flyTo([latitude, longitude], 18, { duration: 1.5 });
-
-                userMarker = L.marker([latitude, longitude]).addTo(map)
-                    .bindPopup(`<strong>¡Estás aquí!</strong><br><small>Precisión: ±${Math.round(accuracy)} m</small>`)
-                    .openPopup();
-
-                userCircle = L.circle([latitude, longitude], {
-                    color: '#136f63',
-                    fillColor: '#136f63',
-                    fillOpacity: 0.2,
-                    radius: accuracy
-                }).addTo(map);
-
-                if (btnClean) btnClean.style.display = 'block';
-
-                btnGPS.innerHTML = originalContent;
-                btnGPS.disabled = false;
-            },
-            (error) => {
-                let msg = "Error al obtener ubicación.";
-                if (error.code === 1) msg = "Permiso denegado.";
-                alert(msg);
-                btnGPS.innerHTML = originalContent;
-                btnGPS.disabled = false;
-            },
-            options
-        );
+            // Mostrar el botón de limpieza
+            if (containerClean) containerClean.style.display = 'block';
+            btnGPS.disabled = false;
+        }, (err) => {
+            alert("Error al obtener ubicación");
+            btnGPS.disabled = false;
+        }, { enableHighAccuracy: true });
     });
 
     if (btnClean) {
-        btnClean.addEventListener('click', () => {
-            window.limpiarGPS();
-        });
+        btnClean.onclick = () => window.limpiarGPS();
     }
 }

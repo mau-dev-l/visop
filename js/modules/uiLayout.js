@@ -3,12 +3,14 @@
 export function setupSidebarToggle(map) {
     const container = document.getElementById('app-container');
     
-    // Creamos el control de Leaflet para el botón de colapso
     const ToggleControl = L.Control.extend({
         options: { position: 'topleft' },
         onAdd: function() {
             const btn = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom-toggle');
+            
+            // Corrección: Se asegura que el HTML sea limpio y sin caracteres extra
             btn.innerHTML = '<a href="#" title="Alternar Sidebar" role="button" aria-label="Alternar Sidebar"><i class="fa-solid fa-bars"></i></a>';
+            
             btn.style.backgroundColor = 'white';
             btn.style.width = '34px';
             btn.style.height = '34px';
@@ -21,13 +23,11 @@ export function setupSidebarToggle(map) {
                 L.DomEvent.stopPropagation(e);
                 L.DomEvent.preventDefault(e);
                 
-                // Alternamos la clase en el contenedor principal
                 container.classList.toggle('sidebar-collapsed');
                 
-                // IMPORTANTE: Notificar a Leaflet que el tamaño del contenedor cambió
                 setTimeout(() => {
                     map.invalidateSize({ animate: true });
-                }, 300); // Tiempo igual a la transición CSS
+                }, 300); 
             });
 
             return btn;

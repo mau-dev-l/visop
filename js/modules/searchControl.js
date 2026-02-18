@@ -24,6 +24,12 @@ export function initSearchControls(map) {
                         </button>
                     </div>
 
+                    <div id="container-clean-gps" style="display: none;" class="mb-2">
+                        <button id="btn-map-clean-gps" class="btn btn-xs btn-danger w-100 shadow-sm" style="font-size: 10px; padding: 2px;">
+                            <i class="fa-solid fa-trash-can"></i> Quitar marcador de ubicación
+                        </button>
+                    </div>
+
                     <div class="map-search-item">
                         <div class="input-group input-group-sm">
                             <span class="input-group-text bg-white"><i class="fa-solid fa-map-location-dot text-warning"></i></span>
@@ -38,9 +44,7 @@ export function initSearchControls(map) {
                             <span class="input-group-text bg-white"><i class="fa-solid fa-crosshairs text-primary"></i></span>
                             <input type="text" id="map-search-coords" class="form-control" placeholder="Lat, Lon">
                             <button id="btn-search-coords" class="btn btn-custom-tuxtla" type="button"><i class="fa-solid fa-location-arrow"></i></button>
-                            <button id="btn-clear-coords" class="btn btn-white border-start-0" type="button"><i class="fa-solid fa-eraser text-muted"></i></button>
                         </div>
-                        <div id="map-coord-error" class="error-badge-map"></div>
                     </div>
                 </div>`;
             return container;
