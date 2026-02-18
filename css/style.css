@@ -841,3 +841,148 @@ html.plt-android .btn-sm {
 .sugerencia-item strong {
     color: #0077b6;
 }
+
+/* Estilos para buscadores sobre el mapa */
+.leaflet-search-wrapper {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.search-flex-container {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.search-box {
+    width: 280px;
+    position: relative;
+}
+
+.sugerencias-flotantes {
+    position: absolute;
+    width: 100%;
+    background: white;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 2000;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+}
+
+.error-flotante {
+    color: #dc3545;
+    font-size: 11px;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+/* Buscadores en la esquina inferior izquierda del mapa */
+.leaflet-search-bottom-wrapper {
+    margin-bottom: 60px; /* Espacio para que no tape el botón de demografía */
+    margin-left: 15px;
+    z-index: 1050;
+}
+
+.search-container-map {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    width: 280px;
+}
+
+.sugerencias-map {
+    position: absolute;
+    bottom: 100%; /* Aparecen hacia arriba para no tapar el footer */
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+    max-height: 150px;
+    overflow-y: auto;
+    display: none;
+    z-index: 2000;
+}
+
+.error-badge-map {
+    font-size: 10px;
+    color: #d62828;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+/* Contenedor de navegación inferior izquierda */
+.leaflet-nav-wrapper {
+    margin-bottom: 145px; /* Lo ponemos arriba de los buscadores actuales */
+    margin-left: 15px;
+    z-index: 1060;
+}
+
+.btn-custom-tuxtla {
+    background-color: #C68A2C !important;
+    color: white !important;
+    border: none;
+}
+
+.nav-container-map button {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+}
+
+.nav-container-map button:hover {
+    transform: scale(1.1);
+}
+
+/* css/style.css */
+
+/* Asegurar transición suave en el grid */
+.geoportal-container {
+    transition: grid-template-columns 0.3s ease-in-out;
+}
+
+/* Estado Colapsado: El sidebar se reduce a 0 y el mapa toma todo el espacio */
+.geoportal-container.sidebar-collapsed {
+    grid-template-columns: 0px 1fr;
+}
+
+.geoportal-container.sidebar-collapsed .geoportal-sidebar {
+    visibility: hidden;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+/* Estilo para el icono dentro del botón de Leaflet */
+.leaflet-control-custom-toggle i {
+    color: #333;
+    font-size: 16px;
+}
+
+.leaflet-control-custom-toggle:hover {
+    background-color: #f4f4f4 !important;
+}
+
+/* Agrupar botón de colapso con botones de zoom */
+.leaflet-control-custom-toggle {
+    margin-bottom: 2px !important;
+}
+
+.leaflet-top.leaflet-left .leaflet-control-zoom {
+    margin-top: 0 !important;
+}
+
+/* Estilo para los buscadores en la parte inferior para que no choquen con atribución */
+.leaflet-search-bottom-wrapper {
+    margin-bottom: 85px; 
+    margin-left: 12px;
+}

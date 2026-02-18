@@ -3,68 +3,81 @@
 import { initMap } from './modules/mapSetup.js';
 import { cargarCapasBackend } from './modules/layers.js';
 import { setupSidebarControls } from './modules/ui.js';
-import { setupSearch } from './modules/search.js';
 import { initDashboard } from './modules/dashboard.js';
-// import { initEditor } from './modules/editor.js'; 
 import { initDashboardManzanas } from './modules/dashboardManzanas.js';
 import { initLegend } from './modules/legend.js'; 
 import { setupGPS } from './modules/gps.js'; 
 import { initGallery } from './modules/gallery.js'; 
-import { setupCoordSearch } from './modules/searchCoords.js';
 
+// --- MÓDULOS DE INTERFAZ SOBRE EL MAPA ---
+import { initSearchControls } from './modules/searchControl.js';
+import { setupColoniaSearch, setupCoordLogic } from './modules/searchLogic.js';
+import { setupSidebarToggle } from './modules/uiLayout.js';
 
+/**
+ * Función principal de inicio. 
+ * Exportada para ser llamada desde index.html tras cargar componentes.
+ */
+export async function iniciarVisop() {
+    console.log("Iniciando lógica de VISOP 2.0...");
 
-
-document.addEventListener('DOMContentLoaded', async () => {
-    
-    // 1. Iniciar Mapa
-    const { map, baseLayers } = initMap();
-
-    // 2. Cargar Capas desde GeoServer
-    const capasOverlay = await cargarCapasBackend();
-
-    // 3. Crear Control de Capas (Esquina superior derecha) - Solo mapas base
-    L.control.layers(baseLayers, null, { position: 'topright' }).addTo(map);
-
-    // 4. Vincular botón Zoom Home
-    const btnHome = document.getElementById('btn-zoom-home');
-    if(btnHome) {
-        btnHome.addEventListener('click', () => {
-            map.setView([16.7538, -93.116], 13);
-        });
+    // Validar que el contenedor del mapa exista antes de intentar inicializar Leaflet
+    if (!document.getElementById('map-container')) {
+        console.error("Error: No se encontró 'map-container'. Asegúrate de que main_content.html se cargó correctamente.");
+        return;
     }
 
+    try {
+        // 1. Iniciar Mapa base (Centro y Zoom inicial)
+        const { map, baseLayers } = initMap();
 
-    // 5. Configurar Sidebar (Switches de capas)
-    setupSidebarControls(map, capasOverlay);
-    
+        // 2. Cargar Capas desde GeoServer (WFS/WMS)
+        const capasOverlay = await cargarCapasBackend();
 
+        // 3. Habilitar función de colapso del Sidebar (Botón en Top-Left)
+        setupSidebarToggle(map);
 
-    // 6. Configurar Buscadores (Datos)
-    setupSearch(map, capasOverlay);
+        // 4. Control de Capas Base (Esquina superior derecha)
+        L.control.layers(baseLayers, null, { position: 'topright' }).addTo(map);
 
-    // 7. Iniciar Dashboard General (Obras)
-    initDashboard();
+        // 5. Configurar Sidebar (Vincula los switches del HTML con las capas)
+        setupSidebarControls(map, capasOverlay);
 
-    // 8. Iniciar Editor (DESHABILITADO)
-    // initEditor(map); 
+        // 6. Iniciar Dashboards y Estadísticas
+        initDashboard();
+        
+        if (capasOverlay.manzanas) {
+            initDashboardManzanas(map, capasOverlay.manzanas);
+        }
 
-    // 9. Iniciar Dashboard Demográfico (Footer)
-    if (capasOverlay.manzanas) {
-        initDashboardManzanas(map, capasOverlay.manzanas);
+        // 7. Iniciar Leyenda Dinámica sincronizada con las capas visibles
+        initLegend(map, capasOverlay);
+
+        // 8. Iniciar Módulo de Galería de fotos (Evidencia fotográfica)
+        initGallery(); 
+
+        // 9. Inicialización de Controles sobre el Mapa (Esquina inferior izquierda)
+        // Crea los inputs de búsqueda, botón Home y botón GPS
+        initSearchControls(map); 
+        
+        // 10. Lógica funcional de los buscadores
+        setupColoniaSearch(map, capasOverlay);
+        setupCoordLogic(map);
+
+        // 11. Lógica de Navegación y Ubicación en tiempo real
+        setupGPS(map);
+
+        // 12. Lógica del botón Home personalizado (Si existe en el DOM)
+        const btnHomeMap = document.getElementById('btn-map-home');
+        if (btnHomeMap) {
+            btnHomeMap.addEventListener('click', () => {
+                map.setView([16.7538, -93.116], 13);
+            });
+        }
+
+        console.log("VISOP 2.0 cargado exitosamente.");
+
+    } catch (error) {
+        console.error("Error crítico durante el inicio de la aplicación:", error);
     }
-
-    // 10. Iniciar Leyenda
-    initLegend(map, capasOverlay);
-
-    // 11. Iniciar GPS
-    setupGPS(map); 
-
-    // 12. Iniciar Galería
-    initGallery(); 
-
-    // 13. INICIAR BÚSQUEDA POR COORDENADAS (NUEVO)
-    setupCoordSearch(map); // <--- 2. ACTIVAR EL MÓDULO
-
-    console.log("VISOP 2.0 Iniciado Completamente.");
-});
+}

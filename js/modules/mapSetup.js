@@ -5,7 +5,7 @@ export function initMap() {
     const map = L.map('map-container', {
         center: [VISTA_INICIAL.lat, VISTA_INICIAL.lng],
         zoom: VISTA_INICIAL.zoom,
-        zoomControl: false, // Lo ponemos manual abajo para cambiar posición
+        zoomControl: false, // Se agrega manualmente para controlar la posición
         contextmenu: true,
         contextmenuWidth: 140,
         contextmenuItems: [{
@@ -27,9 +27,9 @@ export function initMap() {
     // Añadir OSM por defecto
     osm.addTo(map);
 
-    // Controles
-    L.control.zoom({ position: 'bottomright' }).addTo(map);
+    // Agregamos el Zoom en la parte superior izquierda
+    // Al cargarse aquí, aparecerá debajo del botón de colapso si este se inicializa primero
+    L.control.zoom({ position: 'topleft' }).addTo(map);
 
-    // Devolvemos el mapa y las capas base para el control de capas
     return { map, baseLayers: { "Mapa Calles": osm, "Satélite": satelite } };
 }

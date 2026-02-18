@@ -1,17 +1,18 @@
 // frontend/js/modules/gps.js
 
 export function setupGPS(map) {
-    console.log("Módulo GPS iniciado (Con Limpieza Mutua)");
+    console.log("Módulo GPS iniciado (Controles en Mapa)");
 
-    const btnGPS = document.getElementById('btn-native-gps');
-    const btnClean = document.getElementById('btn-clean-gps');
+    // Referencias a los nuevos botones en el mapa
+    const btnGPS = document.getElementById('btn-map-gps');
+    const btnClean = document.getElementById('btn-map-clean-gps');
 
     if (!btnGPS) return;
 
     let userMarker = null;
     let userCircle = null;
 
-    // --- 1. FUNCIÓN GLOBAL PARA LIMPIAR GPS (Accesible desde SearchCoords) ---
+    // --- 1. FUNCIÓN GLOBAL PARA LIMPIAR GPS ---
     window.limpiarGPS = function() {
         if (userMarker) {
             map.removeLayer(userMarker);
@@ -22,14 +23,12 @@ export function setupGPS(map) {
             userCircle = null;
         }
         
-        // Ocultar botón de limpieza
         if (btnClean) btnClean.style.display = 'none';
         
-        // Restaurar estado del botón principal
         btnGPS.disabled = false;
-        btnGPS.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> Mi Ubicación (GPS)';
+        btnGPS.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> GPS';
         
-        console.log(" GPS limpiado.");
+        console.log("GPS limpiado.");
     };
 
     // --- 2. ACTIVAR GPS ---
@@ -39,15 +38,12 @@ export function setupGPS(map) {
             return;
         }
 
-        // 🔥 LIMPIEZA MUTUA: Si hay una búsqueda activa, la borramos
+        // Limpiar búsquedas o rastros previos
         if (window.limpiarBusqueda) window.limpiarBusqueda();
-
-        // Limpiar rastro GPS anterior propio si existiera
         window.limpiarGPS();
 
-        // Feedback visual
-        const originalContent = '<i class="fa-solid fa-location-crosshairs"></i> Mi Ubicación (GPS)';
-        btnGPS.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Ubicando...';
+        const originalContent = '<i class="fa-solid fa-location-crosshairs"></i> GPS';
+        btnGPS.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ...';
         btnGPS.disabled = true;
 
         const options = {
@@ -59,19 +55,11 @@ export function setupGPS(map) {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const { latitude, longitude, accuracy } = position.coords;
-                console.log(`GPS encontrado: ${latitude}, ${longitude}`);
 
-                // Volar al punto
                 map.flyTo([latitude, longitude], 18, { duration: 1.5 });
 
-                // Crear marcador y círculo
                 userMarker = L.marker([latitude, longitude]).addTo(map)
-                    .bindPopup(`
-                        <div style="text-align:center;">
-                            <strong>¡Estás aquí!</strong><br>
-                            <small>Precisión: ±${Math.round(accuracy)} m</small>
-                        </div>
-                    `)
+                    .bindPopup(`<strong>¡Estás aquí!</strong><br><small>Precisión: ±${Math.round(accuracy)} m</small>`)
                     .openPopup();
 
                 userCircle = L.circle([latitude, longitude], {
@@ -81,18 +69,14 @@ export function setupGPS(map) {
                     radius: accuracy
                 }).addTo(map);
 
-                // Mostrar botón de limpieza
                 if (btnClean) btnClean.style.display = 'block';
 
-                // Restaurar botón principal
                 btnGPS.innerHTML = originalContent;
                 btnGPS.disabled = false;
             },
             (error) => {
-                console.warn(`Error GPS: ${error.message}`);
-                let msg = "No se pudo obtener tu ubicación.";
+                let msg = "Error al obtener ubicación.";
                 if (error.code === 1) msg = "Permiso denegado.";
-                
                 alert(msg);
                 btnGPS.innerHTML = originalContent;
                 btnGPS.disabled = false;
@@ -101,7 +85,6 @@ export function setupGPS(map) {
         );
     });
 
-    // --- 3. BOTÓN LIMPIAR ---
     if (btnClean) {
         btnClean.addEventListener('click', () => {
             window.limpiarGPS();
