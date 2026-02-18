@@ -1,0 +1,46 @@
+a<div class="modal fade" id="modalManual" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title"><i class="fa-solid fa-book me-2"></i>Manual de Usuario - VISOP 2.0</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <nav id="navbar-manual" class="navbar navbar-light bg-light mb-3 p-2 rounded">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item"><a class="nav-link small" href="#m-busqueda">Búsqueda</a></li>
+                        <li class="nav-item"><a class="nav-link small" href="#m-capas">Capas</a></li>
+                        <li class="nav-item"><a class="nav-link small" href="#m-gps">GPS</a></li>
+                        <li class="nav-item"><a class="nav-link small" href="#m-galeria">Evidencia</a></li>
+                    </ul>
+                </nav>
+
+                <div data-bs-spy="scroll" data-bs-target="#navbar-manual" data-bs-offset="0" class="scrollspy-example" tabindex="0" style="height: 400px; overflow-y: auto; padding: 10px; border: 1px solid #eee;">
+                    
+                    <h5 id="m-busqueda">1. Sistemas de Búsqueda</h5>
+                    <p>Ubicados en la esquina inferior izquierda del mapa:</p>
+                    <ul>
+                        <li><strong>Colonias:</strong> Escriba el nombre de la colonia y seleccione de la lista desplegable. El mapa se centrará automáticamente.</li>
+                        <li><strong>Coordenadas:</strong> Ingrese valores en formato <code>Latitud, Longitud</code> (ej. 16.75, -93.11) y presione la flecha para ubicar.</li>
+                    </ul>
+
+                    <h5 id="m-capas">2. Control de Capas</h5>
+                    <p>En el panel lateral derecho puede activar/desactivar capas como:</p>
+                    <ul>
+                        <li><strong>FAISMUN/PIM:</strong> Visualice obras públicas por año de ejecución.</li>
+                        <li><strong>Manzanas:</strong> Al activarlas, podrá hacer clic sobre ellas para ver datos demográficos del INEGI.</li>
+                    </ul>
+
+                    <h5 id="m-gps">3. Ubicación GPS</h5>
+                    <p>El botón <strong>GPS</strong> en el mapa permite centrar la vista en su posición actual. Utilice el icono de basura para eliminar el rastro de ubicación.</p>
+
+                    <h5 id="m-galeria">4. Galería de Evidencia</h5>
+                    <p>Al consultar una obra (PIM o FAISMUN), presione el botón <strong>Ver Evidencia</strong> para comparar fotos del estado ANTES y DESPUÉS de la intervención.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar Manual</button>
+            </div>
+        </div>
+    </div>
+</div>
