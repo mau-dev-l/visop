@@ -9,14 +9,14 @@ import { initLegend } from './modules/legend.js';
 import { setupGPS } from './modules/gps.js'; 
 import { initGallery } from './modules/gallery.js'; 
 
-// --- MÓDULOS DE INTERFAZ SOBRE EL MAPA ---
+// --- MÓDULOS DE INTERFAZ Y SEGURIDAD ---
 import { initSearchControls } from './modules/searchControl.js';
 import { setupColoniaSearch, setupCoordLogic } from './modules/searchLogic.js';
 import { setupSidebarToggle } from './modules/uiLayout.js';
+import { initAuth } from './modules/auth.js'; // Módulo de autenticación y edición
 
 /**
- * Función principal de inicio. 
- * Exportada para ser llamada desde index.html tras cargar componentes.
+ * Función principal de inicio del VISOP 2.0
  */
 export async function iniciarVisop() {
     console.log("Iniciando lógica de VISOP 2.0...");
@@ -34,7 +34,7 @@ export async function iniciarVisop() {
         // 2. Cargar Capas desde GeoServer (WFS/WMS)
         const capasOverlay = await cargarCapasBackend();
 
-        // 3. Habilitar función de colapso del Sidebar (Botón en Top-Left)
+        // 3. Habilitar función de Colapso de Sidebar (Botón en Top-Left)
         setupSidebarToggle(map);
 
         // 4. Control de Capas Base (Esquina superior derecha)
@@ -57,17 +57,21 @@ export async function iniciarVisop() {
         initGallery(); 
 
         // 9. Inicialización de Controles sobre el Mapa (Esquina inferior izquierda)
-        // Crea los inputs de búsqueda, botón Home y botón GPS
+        // Crea los botones de Inicio, GPS, Ayuda y la Llave de acceso
         initSearchControls(map); 
         
-        // 10. Lógica funcional de los buscadores
+        // 10. Lógica funcional de los buscadores (Colonias y Coordenadas)
         setupColoniaSearch(map, capasOverlay);
         setupCoordLogic(map);
 
         // 11. Lógica de Navegación y Ubicación en tiempo real
         setupGPS(map);
 
-        // 12. Lógica del botón Home personalizado (Si existe en el DOM)
+        // 12. Inicializar Sistema de Autenticación y Herramientas de Edición
+        // Pasamos capasOverlay para que el editor pueda seleccionar el destino de los trazos
+        initAuth(map, capasOverlay);
+
+        // 13. Lógica del botón Home personalizado
         const btnHomeMap = document.getElementById('btn-map-home');
         if (btnHomeMap) {
             btnHomeMap.addEventListener('click', () => {
@@ -75,9 +79,11 @@ export async function iniciarVisop() {
             });
         }
 
-        console.log("VISOP 2.0 cargado exitosamente.");
+        console.log("VISOP 2.0: Módulos de consulta y edición listos.");
+        return true;
 
     } catch (error) {
-        console.error("Error crítico durante el inicio de la aplicación:", error);
+        console.error("Error durante la inicialización de módulos en app.js:", error);
+        throw error;
     }
 }

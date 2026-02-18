@@ -1,0 +1,57 @@
+<div class="modal fade" id="modalLogin" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-custom-tuxtla text-dark">
+                <h5 class="modal-title fs-6">
+                    <i class="fa-solid fa-user-shield me-2"></i>Acceso Editor SIG
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body p-4">
+                <div class="text-center mb-3">
+                    <i class="fa-solid fa-lock-open fa-2x text-muted"></i>
+                    <p class="small text-muted mt-2">Ingrese sus credenciales para habilitar las herramientas de actualización de obra.</p>
+                </div>
+
+                <form id="form-login-visop">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Usuario Institucional</label>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text bg-light text-muted">
+                                <i class="fa-solid fa-user-gear"></i>
+                            </span>
+                            <input type="text" id="login-user" class="form-control" placeholder="admin_sig" required autocomplete="username">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Contraseña</label>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text bg-light text-muted">
+                                <i class="fa-solid fa-key"></i>
+                            </span>
+                            <input type="password" id="login-pass" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                        </div>
+                    </div>
+
+                    <div id="login-error" class="alert alert-danger py-2 mb-3 shadow-sm" style="display: none; font-size: 0.75rem;">
+                        <i class="fa-solid fa-triangle-exclamation me-1"></i> Credenciales no válidas para el ICIPLAM.
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-sm btn-dark py-2">
+                            <i class="fa-solid fa-right-to-bracket me-2"></i>Habilitar Edición
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer bg-light py-2">
+                <small class="text-muted w-100 text-center" style="font-size: 10px;">
+                    Coordinación de Sistemas de Información Geográfica - ICIPLAM | Ayuntamiento de Tuxtla Gutiérrez
+                </small>
+            </div>
+        </div>
+    </div>
+</div>

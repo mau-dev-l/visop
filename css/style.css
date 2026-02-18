@@ -986,3 +986,20 @@ html.plt-android .btn-sm {
     margin-bottom: 85px; 
     margin-left: 12px;
 }
+
+
+/* Selector de capa de destino para edición */
+.leaflet-editor-selector {
+    background: white;
+    margin-right: 10px;
+    margin-top: 100px; /* Debajo del control de capas base */
+    width: 200px;
+    border-radius: 4px;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+#select-capa-destino {
+    cursor: pointer;
+    font-size: 12px;
+}
