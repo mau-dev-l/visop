@@ -13,7 +13,35 @@ import { initGallery } from './modules/gallery.js';
 import { initSearchControls } from './modules/searchControl.js';
 import { setupColoniaSearch, setupCoordLogic } from './modules/searchLogic.js';
 import { setupSidebarToggle } from './modules/uiLayout.js';
-import { initAuth } from './modules/auth.js'; // Módulo de autenticación y edición
+import { initAuth } from './modules/auth.js'; 
+
+/**
+ * Lógica para alternar entre Modo Claro y Oscuro
+ */
+function setupDarkMode() {
+    const btn = document.getElementById('btn-dark-mode');
+    if (!btn) return;
+
+    // Verificar si ya existía una preferencia guardada en el navegador
+    if (localStorage.getItem('visop-theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        btn.innerHTML = '<i class="fa-solid fa-sun text-warning"></i>';
+    }
+
+    btn.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('dark-mode');
+        
+        // Guardar la preferencia del usuario
+        localStorage.setItem('visop-theme', isDark ? 'dark' : 'light');
+        
+        // Actualizar icono visualmente
+        btn.innerHTML = isDark 
+            ? '<i class="fa-solid fa-sun text-warning"></i>' 
+            : '<i class="fa-solid fa-moon"></i>';
+            
+        console.log(`Modo ${isDark ? 'Oscuro' : 'Claro'} activado.`);
+    });
+}
 
 /**
  * Función principal de inicio del VISOP 2.0
@@ -21,9 +49,9 @@ import { initAuth } from './modules/auth.js'; // Módulo de autenticación y edi
 export async function iniciarVisop() {
     console.log("Iniciando lógica de VISOP 2.0...");
 
-    // Validar que el contenedor del mapa exista antes de intentar inicializar Leaflet
+    // Validar que el contenedor del mapa exista antes de iniciar Leaflet
     if (!document.getElementById('map-container')) {
-        console.error("Error: No se encontró 'map-container'. Asegúrate de que main_content.html se cargó correctamente.");
+        console.error("Error: No se encontró 'map-container'.");
         return;
     }
 
@@ -34,44 +62,44 @@ export async function iniciarVisop() {
         // 2. Cargar Capas desde GeoServer (WFS/WMS)
         const capasOverlay = await cargarCapasBackend();
 
-        // 3. Habilitar función de Colapso de Sidebar (Botón en Top-Left)
+        // 3. Habilitar función de Colapso de Sidebar
         setupSidebarToggle(map);
 
-        // 4. Control de Capas Base (Esquina superior derecha)
+        // 4. Control de Capas Base (Top-Right)
         L.control.layers(baseLayers, null, { position: 'topright' }).addTo(map);
 
-        // 5. Configurar Sidebar (Vincula los switches del HTML con las capas)
+        // 5. Configurar Sidebar (Vincula switches con capas)
         setupSidebarControls(map, capasOverlay);
 
         // 6. Iniciar Dashboards y Estadísticas
         initDashboard();
-        
         if (capasOverlay.manzanas) {
             initDashboardManzanas(map, capasOverlay.manzanas);
         }
 
-        // 7. Iniciar Leyenda Dinámica sincronizada con las capas visibles
+        // 7. Iniciar Leyenda Dinámica
         initLegend(map, capasOverlay);
 
-        // 8. Iniciar Módulo de Galería de fotos (Evidencia fotográfica)
+        // 8. Iniciar Módulo de Galería
         initGallery(); 
 
-        // 9. Inicialización de Controles sobre el Mapa (Esquina inferior izquierda)
-        // Crea los botones de Inicio, GPS, Ayuda y la Llave de acceso
+        // 9. Inicialización de Controles sobre el Mapa (Home, GPS, Ayuda, Llave)
         initSearchControls(map); 
         
-        // 10. Lógica funcional de los buscadores (Colonias y Coordenadas)
+        // 10. Lógica funcional de buscadores
         setupColoniaSearch(map, capasOverlay);
         setupCoordLogic(map);
 
-        // 11. Lógica de Navegación y Ubicación en tiempo real
+        // 11. Lógica de Navegación y Ubicación
         setupGPS(map);
 
-        // 12. Inicializar Sistema de Autenticación y Herramientas de Edición
-        // Pasamos capasOverlay para que el editor pueda seleccionar el destino de los trazos
+        // 12. Inicializar Sistema de Autenticación y Edición
         initAuth(map, capasOverlay);
 
-        // 13. Lógica del botón Home personalizado
+        // 13. Configurar el Modo Oscuro
+        // setupDarkMode();
+
+        // 14. Lógica del botón Home personalizado
         const btnHomeMap = document.getElementById('btn-map-home');
         if (btnHomeMap) {
             btnHomeMap.addEventListener('click', () => {
