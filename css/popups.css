@@ -1,0 +1,38 @@
+/* css/popups.css */
+.legend-container {
+    position: absolute;
+    bottom: 30px;
+    right: 15px;
+    width: 130px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    padding: 10px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.legend-header {
+    font-size: 11px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    gap: 8px;
+}
+
+.legend-symbol.line {
+    width: 20px;
+    height: 4px;
+    background-color: #ce0cae; /* Color magenta de FAISMUN */
+    border-radius: 2px;
+}

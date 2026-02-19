@@ -3,7 +3,7 @@
     
     <div id="grafica-panel" class="bg-light shadow-lg">
         <div class="grafica-header d-flex justify-content-between align-items-center p-2 border-bottom">
-            <span id="grafica-titulo" class="fw-bold small">Estadísticas</span>
+            <span id="grafica-titulo" class="fw-bold small">Estadísticas de Análisis</span>
             <button id="btn-cerrar-grafica" class="btn-close" title="Cerrar"></button>
         </div>
         <div class="grafica-body p-1">
@@ -15,7 +15,8 @@
         <div class="legend-header">
             <i class="fa-solid fa-list-ul"></i> Simbología
         </div>
-        <div id="leyenda-content" class="legend-body"></div>
+        <div id="leyenda-content" class="legend-body">
+            </div>
     </div>
 
     <div id="panel-demografico" class="dashboard-footer">
@@ -24,26 +25,57 @@
         </button>
         
         <div class="cards-container">
+            
             <div class="kpi-card">
-                <div class="icon-box bg-primary-subtle text-primary"><i class="fa-solid fa-users"></i></div>
-                <div><h6 class="text-muted mb-0">Población Total</h6><h4 class="fw-bold mb-0" id="kpi-pob-total">...</h4></div>
+                <div class="icon-box bg-primary-subtle text-primary">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-0" style="font-size: 0.75rem;">Población Total</h6>
+                    <h4 class="fw-bold mb-0" id="kpi-pob-total" style="font-size: 1.1rem;">0</h4>
+                </div>
             </div>
+
             <div class="kpi-card">
-                <div class="icon-box bg-info-subtle text-info"><i class="fa-solid fa-person"></i></div>
-                <div><h6 class="text-muted mb-0">Hombres</h6><h4 class="fw-bold mb-0" id="kpi-pob-mas">...</h4></div>
+                <div class="icon-box bg-info-subtle text-info">
+                    <i class="fa-solid fa-person"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-0" style="font-size: 0.75rem;">Hombres</h6>
+                    <h4 class="fw-bold mb-0" id="kpi-pob-mas" style="font-size: 1.1rem;">0</h4>
+                </div>
             </div>
+
             <div class="kpi-card">
-                <div class="icon-box bg-danger-subtle text-danger"><i class="fa-solid fa-person-dress"></i></div>
-                <div><h6 class="text-muted mb-0">Mujeres</h6><h4 class="fw-bold mb-0" id="kpi-pob-fem">...</h4></div>
+                <div class="icon-box bg-danger-subtle text-danger">
+                    <i class="fa-solid fa-person-dress"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-0" style="font-size: 0.75rem;">Mujeres</h6>
+                    <h4 class="fw-bold mb-0" id="kpi-pob-fem" style="font-size: 1.1rem;">0</h4>
+                </div>
             </div>
+
             <div class="kpi-card">
-                <div class="icon-box bg-warning-subtle text-warning"><i class="fa-solid fa-person-breastfeeding"></i></div>
-                <div><h6 class="text-muted mb-0">Jefatura Fem.</h6><h4 class="fw-bold mb-0" id="kpi-jefatura">...</h4></div>
+                <div class="icon-box bg-warning-subtle text-warning">
+                    <i class="fa-solid fa-person-breastfeeding"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-0" style="font-size: 0.75rem;">Jefatura Fem.</h6>
+                    <h4 class="fw-bold mb-0" id="kpi-jefatura" style="font-size: 1.1rem;">0</h4>
+                </div>
             </div>
+
             <div class="kpi-card">
-                <div class="icon-box bg-success-subtle text-success"><i class="fa-solid fa-house-chimney"></i></div>
-                <div><h6 class="text-muted mb-0">Tot. Viviendas</h6><h4 class="fw-bold mb-0" id="kpi-viviendas">...</h4></div>
+                <div class="icon-box bg-success-subtle text-success">
+                    <i class="fa-solid fa-house-chimney"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-0" style="font-size: 0.75rem;">Tot. Viviendas</h6>
+                    <h4 class="fw-bold mb-0" id="kpi-viviendas" style="font-size: 1.1rem;">0</h4>
+                </div>
             </div>
+
         </div>
     </div>
 </main>

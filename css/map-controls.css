@@ -1,0 +1,40 @@
+/* css/map-controls.css */
+.geoportal-main { grid-area: main; position: relative; overflow: hidden; }
+#map-container { width: 100%; height: 100%; background-color: #eee; }
+
+/* Contenedor de Buscadores */
+.leaflet-search-bottom-wrapper {
+    margin-bottom: 90px; /* Espacio para el panel de manzanas */
+    margin-left: 15px;
+    z-index: 1050;
+}
+
+.search-container-map {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    width: 280px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Botones de Navegación */
+.leaflet-nav-wrapper {
+    margin-bottom: 155px;
+    margin-left: 15px;
+    z-index: 1060;
+}
+
+.nav-container-map button {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #C68A2C !important;
+    color: white !important;
+    border: none;
+    margin-bottom: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
