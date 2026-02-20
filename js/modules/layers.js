@@ -102,7 +102,8 @@ export async function cargarCapasBackend() {
 
     console.log("Conectando PIM 2025...");
     try {
-        const pimWms = L.tileLayer.wms(`${GEOSERVER_BASE_URL}/visop/wms`, {
+        // CORRECCIÓN: Se usa GEOSERVER_BASE_URL directamente para evitar duplicar /visop/wms
+        const pimWms = L.tileLayer.wms(GEOSERVER_BASE_URL, {
             layers: 'visop:pim_2025',
             format: 'image/png',
             transparent: true,
@@ -126,10 +127,10 @@ export async function cargarCapasBackend() {
             pimWfs.onRemove = function(map) { originalOnRemove(map); map.removeLayer(pimWms); return this; };
 
             capas.pim2025 = pimWfs;
-            console.log(`✅ PIM 2025 cargado: ${dPim.features.length} registros`);
+            console.log(`PIM 2025 cargado: ${dPim.features.length} registros`); // Sin emojis
         }
     } catch (error) {
-        console.error("❌ Error cargando PIM 2025:", error);
+        console.error("Error cargando PIM 2025:", error); // Sin emojis
     }
 
     const dF24 = await fetchWFS('faismun_2024_geo');
@@ -236,12 +237,22 @@ export async function cargarCapasBackend() {
         layers: 'visop:predios_cb01_geo', format: 'image/png', transparent: true, version: '1.1.0', zIndex: 3
     });
 
+    // =========================================================
+    //  NUEVA CAPA: Vialidades Sin Recubrimiento (WMS)
+    // =========================================================
+    // CORRECCIÓN: Se usa GEOSERVER_BASE_URL directamente
+    capas.vialidades = L.tileLayer.wms(GEOSERVER_BASE_URL, {
+        layers: 'visop:vialidades_sin_recubrimiento',
+        format: 'image/png',
+        transparent: true,
+        version: '1.1.0',
+        zIndex: 4, 
+        attribution: 'ICIPLAM - SIGETUX'
+    });
+
     return capas;
 }
 
-/**
- * Función corregida para el popup de PIM 2025 (Diseño FAISMUN, Colores PIM)
- */
 function crearPopupPIM(p) {
     const nombreObra = p['Nombre de'] || 'NOMBRE NO DISPONIBLE';
     const descripcion = p['Descrició'] || 'Sin descripción'; 

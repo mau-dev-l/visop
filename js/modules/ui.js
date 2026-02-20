@@ -1,10 +1,11 @@
+// frontend/js/modules/ui.js
 // Este módulo conecta los interruptores (switches) del HTML con las capas del Mapa
 
 export function setupSidebarControls(map, capas) {
-    console.log("🎛️ Configurando controles del Sidebar...");
+    console.log("Configurando controles del Sidebar...");
 
     const controles = {
-        'checkFAISMUN2025': capas.faismun2025, // <--- NUEVO
+        'checkFAISMUN2025': capas.faismun2025, 
         'checkFAISMUN': capas.faismun2024,
         'checkFAISMUNLineas': capas.faismunLineas,
         'checkFAISMUN2023': capas.faismun2023,
@@ -15,7 +16,8 @@ export function setupSidebarControls(map, capas) {
         'checkLimiteMunicipal': capas.limite,
         'checkPIM2025': capas.pim2025,
         'checkParques': capas.parques_mun,
-        'checkRutas': capas.Rutas_Tuxtla
+        'checkRutas': capas.Rutas_Tuxtla,
+        'checkVialidades': capas.vialidades 
     };
 
     // 1. Apagar el switch maestro "Todas"
@@ -31,11 +33,6 @@ export function setupSidebarControls(map, capas) {
         if (checkbox && capa) {
             
             // --- REINICIO FORZADO ---
-            // Ponemos el switch en OFF aunque el navegador recuerde otra cosa
-            // EXCEPCIÓN: Si queremos que el 2025 inicie prendido, quitamos esto para él.
-            // Pero por consistencia, lo dejamos controlado por el HTML 'checked'.
-            
-            // Si por alguna razón la capa está en el mapa, la quitamos (limpieza inicial)
             if (!checkbox.checked && map.hasLayer(capa)) {
                 map.removeLayer(capa);
             }
@@ -67,7 +64,6 @@ export function setupSidebarControls(map, capas) {
         checkAllFais.addEventListener('change', (e) => {
             const estado = e.target.checked;
             // Disparamos el evento click en los hijos para reciclar la lógica
-            // Agregamos 'checkFAISMUN2025' a la lista
             const hijos = ['checkFAISMUN2025', 'checkFAISMUN', 'checkFAISMUNLineas', 'checkFAISMUN2023', 'checkPIM2025'];
             hijos.forEach(id => {
                 const cb = document.getElementById(id);
