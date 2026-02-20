@@ -2,12 +2,19 @@
 
 export function initSearchControls(map) {
     const SearchControl = L.Control.extend({
-        options: { position: 'bottomleft' },
+        options: { position: 'topleft' },
         onAdd: function() {
             const container = L.DomUtil.create('div', 'leaflet-search-bottom-wrapper');
             L.DomEvent.disableClickPropagation(container);
             
-            container.innerHTML = `
+            const toggleBtn = L.DomUtil.create('button', 'btn btn-sm btn-custom-tuxtla leaflet-search-toggle');
+            toggleBtn.innerHTML = '<i class="fa-solid fa-sliders"></i>';
+            toggleBtn.title = 'Controles de búsqueda';
+            container.appendChild(toggleBtn);
+            
+            const searchContent = L.DomUtil.create('div', 'leaflet-search-content');
+            searchContent.style.display = 'none';
+            searchContent.innerHTML = `
                 <div class="search-container-map shadow">
                     <div class="d-flex gap-1 mb-2">
                         <button id="btn-map-home" class="btn btn-sm btn-custom-tuxtla w-25" title="Inicio">
@@ -47,6 +54,12 @@ export function initSearchControls(map) {
                         </div>
                     </div>
                 </div>`;
+            container.appendChild(searchContent);
+            
+            toggleBtn.addEventListener('click', () => {
+                searchContent.style.display = searchContent.style.display === 'none' ? 'block' : 'none';
+            });
+            
             return container;
         }
     });

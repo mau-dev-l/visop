@@ -27,7 +27,7 @@ export function setupCoordSearch(map) {
         // Ocultar botón de limpieza
         if (btnClean) btnClean.style.display = 'none';
         
-        console.log("🧹 Búsqueda limpiada.");
+        console.log(" Búsqueda limpiada.");
     };
 
     // --- 2. ACTIVAR BÚSQUEDA ---

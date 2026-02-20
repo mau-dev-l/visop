@@ -68,7 +68,7 @@ export function setupSidebarControls(map, capas) {
             const estado = e.target.checked;
             // Disparamos el evento click en los hijos para reciclar la lógica
             // Agregamos 'checkFAISMUN2025' a la lista
-            const hijos = ['checkFAISMUN2025', 'checkFAISMUN', 'checkFAISMUNLineas', 'checkFAISMUN2023'];
+            const hijos = ['checkFAISMUN2025', 'checkFAISMUN', 'checkFAISMUNLineas', 'checkFAISMUN2023', 'checkPIM2025'];
             hijos.forEach(id => {
                 const cb = document.getElementById(id);
                 // Solo cambiamos si el estado actual es distinto al deseado

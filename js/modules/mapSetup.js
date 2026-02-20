@@ -7,7 +7,7 @@ export function initMap() {
         zoom: VISTA_INICIAL.zoom,
         zoomControl: false, // Se agrega manualmente para controlar la posición
         contextmenu: true,
-        contextmenuWidth: 140,
+        contextmenuWidth: 190,
         contextmenuItems: [{
             text: 'Centrar mapa aquí',
             callback: (e) => map.panTo(e.latlng)
