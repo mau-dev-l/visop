@@ -3,7 +3,7 @@
 import { initMap } from './modules/mapSetup.js';
 import { cargarCapasBackend } from './modules/layers.js';
 import { setupSidebarControls } from './modules/ui.js';
-import { initDashboard } from './modules/dashboard.js';
+// import { initDashboard } from './modules/dashboard.js';
 import { initDashboardManzanas } from './modules/dashboardManzanas.js';
 import { initLegend } from './modules/legend.js'; 
 import { setupGPS } from './modules/gps.js'; 
@@ -72,7 +72,7 @@ export async function iniciarVisop() {
         setupSidebarControls(map, capasOverlay);
 
         // 6. Iniciar Dashboards y Estadísticas
-        initDashboard();
+        // initDashboard();
         if (capasOverlay.manzanas) {
             initDashboardManzanas(map, capasOverlay.manzanas);
         }
