@@ -19,61 +19,93 @@
             </div>
     </div>
 
-   <div id="panel-demografico" class="dashboard-footer">
-                <button id="btn-toggle-demografico" class="btn-toggle-footer">
-                    <i class="fa-solid fa-people-group"></i> Demografía Tuxtla
-                </button>
-                
-                <div class="cards-container">
-                    <div class="kpi-card">
-                        <div class="icon-box bg-primary-subtle text-primary">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-                        <div>
-                            <h6 class="text-muted mb-0">Población Total</h6>
-                            <h4 class="fw-bold mb-0" id="kpi-pob-total">...</h4>
-                        </div>
-                    </div>
-
-                    <div class="kpi-card">
-                        <div class="icon-box bg-info-subtle text-info">
-                            <i class="fa-solid fa-person"></i>
-                        </div>
-                        <div>
-                            <h6 class="text-muted mb-0">Hombres</h6>
-                            <h4 class="fw-bold mb-0" id="kpi-pob-mas">...</h4>
-                        </div>
-                    </div>
-
-                    <div class="kpi-card">
-                        <div class="icon-box bg-danger-subtle text-danger">
-                            <i class="fa-solid fa-person-dress"></i>
-                        </div>
-                        <div>
-                            <h6 class="text-muted mb-0">Mujeres</h6>
-                            <h4 class="fw-bold mb-0" id="kpi-pob-fem">...</h4>
-                        </div>
-                    </div>
-
-                    <div class="kpi-card">
-                        <div class="icon-box bg-warning-subtle text-warning">
-                            <i class="fa-solid fa-person-breastfeeding"></i>
-                        </div>
-                        <div>
-                            <h6 class="text-muted mb-0">Jefatura Fem.</h6>
-                            <h4 class="fw-bold mb-0" id="kpi-jefatura">...</h4>
-                        </div>
-                    </div>
-
-                    <div class="kpi-card">
-                        <div class="icon-box bg-success-subtle text-success">
-                            <i class="fa-solid fa-house-chimney"></i>
-                        </div>
-                        <div>
-                            <h6 class="text-muted mb-0">Tot. Viviendas</h6>
-                            <h4 class="fw-bold mb-0" id="kpi-viviendas">...</h4>
-                        </div>
-                    </div>
+    <div id="panel-demografico" class="dashboard-footer">
+        <button id="btn-toggle-demografico" class="btn-toggle-footer">
+            <i class="fa-solid fa-people-group"></i> Demografía Tuxtla
+        </button>
+        
+        <div class="cards-container">
+            <div class="kpi-card">
+                <div class="icon-box bg-primary-subtle text-primary">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-0">Población Total</h6>
+                    <h4 class="fw-bold mb-0" id="kpi-pob-total">...</h4>
                 </div>
             </div>
+
+            <div class="kpi-card">
+                <div class="icon-box bg-info-subtle text-info">
+                    <i class="fa-solid fa-person"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-0">Hombres</h6>
+                    <h4 class="fw-bold mb-0" id="kpi-pob-mas">...</h4>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="icon-box bg-danger-subtle text-danger">
+                    <i class="fa-solid fa-person-dress"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-0">Mujeres</h6>
+                    <h4 class="fw-bold mb-0" id="kpi-pob-fem">...</h4>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="icon-box bg-warning-subtle text-warning">
+                    <i class="fa-solid fa-person-breastfeeding"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-0">Jefatura Fem.</h6>
+                    <h4 class="fw-bold mb-0" id="kpi-jefatura">...</h4>
+                </div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="icon-box bg-success-subtle text-success">
+                    <i class="fa-solid fa-house-chimney"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted mb-0">Tot. Viviendas</h6>
+                    <h4 class="fw-bold mb-0" id="kpi-viviendas">...</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="right-sidebar" class="right-sidebar shadow-lg">
+        <button id="btn-toggle-right" class="btn-toggle-right" title="Ver lista de obras">
+            <i class="fa-solid fa-table-list"></i>
+        </button>
+        
+        <div class="right-sidebar-header bg-dark text-white p-2 d-flex justify-content-between align-items-center">
+            <span class="fw-bold" style="font-size: 13px;">
+                <i class="fa-solid fa-clipboard-list me-2"></i> Padrón de Obras
+            </span>
+        </div>
+
+        <div class="p-2 bg-light border-bottom">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text bg-white border-end-0 text-muted">
+                    <i class="fa-solid fa-search"></i>
+                </span>
+                <input type="text" id="input-buscar-obra" class="form-control border-start-0 ps-0 shadow-none" placeholder="Buscar obra, clave o colonia...">
+            </div>
+        </div>
+        
+        <div class="right-sidebar-body bg-white">
+            <ul class="nav nav-tabs custom-tabs pt-1 px-1" id="attribute-tabs" role="tablist"></ul>
+            
+            <div class="tab-content" id="attribute-tabs-content">
+                <div class="p-4 text-muted text-center small mt-4" id="empty-state-msg">
+                    <i class="fa-solid fa-layer-group fs-2 mb-2 text-secondary"></i><br>
+                    Activa una capa de obras (FAISMUN o PIM) desde el panel izquierdo para ver su listado aquí.
+                </div>
+            </div>
+        </div>
+    </div>
 </main>

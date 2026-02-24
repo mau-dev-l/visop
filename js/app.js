@@ -15,6 +15,9 @@ import { setupColoniaSearch, setupCoordLogic } from './modules/searchLogic.js';
 import { setupSidebarToggle } from './modules/uiLayout.js';
 import { initAuth } from './modules/auth.js'; 
 
+// --- NUEVO MÓDULO DE TABLA DE ATRIBUTOS ---
+import { initAttributeTable } from './modules/attributeTable.js';
+
 /**
  * Lógica para alternar entre Modo Claro y Oscuro
  */
@@ -106,6 +109,9 @@ export async function iniciarVisop() {
                 map.setView([16.7538, -93.116], 13);
             });
         }
+
+        // 15. Iniciar Tabla de Atributos (Sidebar Derecho)
+        initAttributeTable(map, capasOverlay);
 
         console.log("VISOP 2.0: Módulos de consulta y edición listos.");
         return true;

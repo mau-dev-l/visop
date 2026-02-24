@@ -1,0 +1,77 @@
+/* css/right-sidebar.css */
+
+/* Contenedor Principal (Posicionamiento Absoluto) */
+.right-sidebar {
+    position: absolute;
+    top: 0;
+    right: -320px; /* Oculto inicialmente por su propio ancho */
+    width: 320px;
+    height: 100%;
+    z-index: 1040; /* Por encima del mapa, debajo de modales top */
+    transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #ddd;
+}
+
+/* Estado activo (Despliegue a la vista) */
+.right-sidebar.activo {
+    right: 0;
+}
+
+/* Botón flotante para abrir/cerrar */
+.btn-toggle-right {
+    position: absolute;
+    left: -42px;
+    top: 80px; /* Altura cómoda para clics */
+    width: 42px;
+    height: 42px;
+    background-color: #343a40;
+    color: white;
+    border: none;
+    border-radius: 8px 0 0 8px;
+    box-shadow: -3px 2px 8px rgba(0,0,0,0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.btn-toggle-right:hover {
+    background-color: #C68A2C; /* Dorado Institucional */
+}
+
+/* Áreas de contenido interno */
+.right-sidebar-body {
+    flex-grow: 1;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+/* Estilo para cada fila de obra generada */
+.obra-item-list {
+    border-bottom: 1px solid #f1f1f1;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.obra-item-list:hover {
+    background-color: #f8f9fa;
+    padding-left: 12px !important; /* Pequeña animación al pasar el mouse */
+    border-left: 3px solid #C68A2C;
+}
+
+/* Ajuste sutil a las pestañas nativas de Bootstrap */
+.custom-tabs .nav-link {
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: 4px 4px 0 0;
+}
