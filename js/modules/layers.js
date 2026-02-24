@@ -7,10 +7,10 @@ import {
     estiloColonias, estiloZAP, estiloLineas24, popupGenerico 
 } from './styles.js';
 
-// Importamos la nueva modularidad de Popups
+// Importamos la nueva modularidad de Popups y la nueva de pavimentacion
 import { 
     popupFAISMUN2025, crearPopupPIM, popupFAISMUNLineas, 
-    popupZAP, popupParques, popupRutas 
+    popupZAP, popupParques, popupRutas, popupPavimentacion 
 } from './popups.js';
 
 export async function cargarCapasBackend() {
@@ -31,7 +31,7 @@ export async function cargarCapasBackend() {
                 opacity: 0.9,
                 lineCap: 'round'
             },
-            onEachFeature: popupFAISMUN2025 // Usando la función modular importada
+            onEachFeature: popupFAISMUN2025 
         });
         console.log(`FAISMUN 25 (Líneas): ${dF25.features.length} registros`);
     }
@@ -51,7 +51,7 @@ export async function cargarCapasBackend() {
             const pimWfs = L.geoJSON(dPim, {
                 pointToLayer: (f, latlng) => L.circleMarker(latlng, { radius: 12, opacity: 0, fillOpacity: 0, color: 'transparent', weight: 0 }),
                 onEachFeature: (feature, layer) => {
-                    layer.bindPopup(crearPopupPIM(feature.properties)); // Usando la función modular importada
+                    layer.bindPopup(crearPopupPIM(feature.properties)); 
                 }
             });
 
@@ -68,6 +68,20 @@ export async function cargarCapasBackend() {
         console.error("Error cargando PIM 2025:", error);
     }
 
+    // NUEVA CAPA: Pavimentación 2018-2025 (WFS Vectorial)
+    const dPavimentacion = await fetchWFS('pavimentacion_2018_2025');
+    if (dPavimentacion?.features) {
+        capas.pavimentacion = L.geoJSON(dPavimentacion, {
+            style: {
+                color: '#495057', // Color gris oscuro asfalto
+                weight: 4,
+                opacity: 0.85
+            },
+            onEachFeature: popupPavimentacion
+        });
+        console.log(`Pavimentacion 2018-2025: ${dPavimentacion.features.length} registros`);
+    }
+
     const dF24 = await fetchWFS('faismun_2024_geo');
     if (dF24?.features) {
         capas.faismun2024 = L.geoJSON(dF24, {
@@ -80,7 +94,7 @@ export async function cargarCapasBackend() {
     if (dF24Lin?.features) {
         capas.faismunLineas = L.geoJSON(dF24Lin, {
             style: estiloLineas24,
-            onEachFeature: popupFAISMUNLineas // Usando la función modular importada
+            onEachFeature: popupFAISMUNLineas 
         });
     }
 
@@ -106,7 +120,7 @@ export async function cargarCapasBackend() {
             style: function(feature) {
                 return { color: '#FF6600', weight: 2, opacity: 1, fillColor: '#FF6600', fillOpacity: 0.0 };
             },
-            onEachFeature: popupZAP // Usando la función modular importada
+            onEachFeature: popupZAP 
         });
     }
 
@@ -121,14 +135,14 @@ export async function cargarCapasBackend() {
     const dparques = await fetchWFS('parques_mun');
     if (dparques?.features) {
         capas.parques_mun = L.geoJSON(dparques, {
-            onEachFeature: popupParques // Usando la función modular importada
+            onEachFeature: popupParques 
         });
     }
 
     const drutas = await fetchWFS('Rutas_Tuxtla');
     if (drutas?.features) {
         capas.Rutas_Tuxtla = L.geoJSON(drutas, {
-            onEachFeature: popupRutas // Usando la función modular importada
+            onEachFeature: popupRutas 
         });
     }
 

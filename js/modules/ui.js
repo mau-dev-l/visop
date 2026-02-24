@@ -17,13 +17,14 @@ export function setupSidebarControls(map, capas) {
         'checkPIM2025': capas.pim2025,
         'checkParques': capas.parques_mun,
         'checkRutas': capas.Rutas_Tuxtla,
-        'checkVialidades': capas.vialidades 
+        'checkVialidades': capas.vialidades,
+        'checkPavimentacion': capas.pavimentacion // <--- NUEVA ASIGNACIÓN
     };
 
     // 1. Apagar el switch maestro "Todas"
     const checkAllFais = document.getElementById('checkFAISMUN_All');
     if (checkAllFais) {
-        checkAllFais.checked = false; // Forzar apagado visual
+        checkAllFais.checked = false; 
     }
 
     // 2. Recorrer cada control
@@ -67,7 +68,6 @@ export function setupSidebarControls(map, capas) {
             const hijos = ['checkFAISMUN2025', 'checkFAISMUN', 'checkFAISMUNLineas', 'checkFAISMUN2023', 'checkPIM2025'];
             hijos.forEach(id => {
                 const cb = document.getElementById(id);
-                // Solo cambiamos si el estado actual es distinto al deseado
                 if (cb && cb.checked !== estado) {
                     cb.click(); 
                 }

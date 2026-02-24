@@ -73,7 +73,7 @@ export function popupFAISMUN2025(feature, layer) {
     layer.bindPopup(html);
 }
 
-// 2. Popup para PIM 2025 (Solo retorna el HTML como tu función original)
+// 2. Popup para PIM 2025
 export function crearPopupPIM(p) {
     const nombreObra = p['Nombre de'] || 'NOMBRE NO DISPONIBLE';
     const descripcion = p['Descrició'] || 'Sin descripción'; 
@@ -215,4 +215,36 @@ export function popupParques(feature, layer) {
 export function popupRutas(feature, layer) {
     const p = feature.properties;
     layer.bindPopup(`<strong>Ruta:</strong> ${p.route_name || 'S/D'}`);
+}
+
+// 7. Popup Pavimentacion 2018-2025 (CON CAMPO TIPO Y FUENTE)
+export function popupPavimentacion(feature, layer) {
+    const p = feature.properties;
+    
+    // Extracción de datos asegurando diferentes nomenclaturas
+    const tipoPavimentacion = p.Tipo || p.tipo || p.Layer || p.layer || 'Dato no disponible';
+    const fuenteDatos = p.Fuente || p.fuente || p.FUENTE || 'S/D';
+    
+    const html = `
+        <div style="min-width: 210px; font-family: 'Segoe UI', sans-serif; font-size: 13px;">
+            <div style="background-color: #495057; color: white; padding: 6px 10px; border-radius: 4px 4px 0 0; font-weight: bold; margin-bottom: 8px; border-bottom: 2px solid #343a40;">
+                <i class="fa-solid fa-road"></i> Pavimentación (2018-2025)
+            </div>
+            
+            <div style="margin-bottom: 8px; line-height: 1.3;">
+                <strong style="color: #000; font-size: 13px;">Obra de Pavimentación</strong>
+            </div>
+            
+            <hr style="margin: 5px 0; border-color: #eee;">
+            
+            <div style="margin-bottom: 5px; font-size: 13px; color: #333;">
+                <strong style="color: #495057;"><i class="fa-solid fa-layer-group"></i> Material / Tipo:</strong> <span style="font-weight: 600; color: #d62828;">${tipoPavimentacion}</span>
+            </div>
+
+            <div style="margin-bottom: 5px; font-size: 13px; color: #333;">
+                <strong style="color: #495057;"><i class="fa-solid fa-database"></i> Fuente:</strong> <span style="font-weight: 600; color: #555;">${fuenteDatos}</span>
+            </div>
+        </div>
+    `;
+    layer.bindPopup(html);
 }
