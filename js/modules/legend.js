@@ -9,14 +9,32 @@ export function initLegend(map, capas) {
     if (!container || !content) return;
 
     // ============================================================
-    // 1. CONFIGURACIÓN DE COLORES
+    // 1. CONFIGURACIÓN DE COLORES Y ESTILOS
     // ============================================================
     const config = [
         { 
+            layer: capas.mapaCalor, 
+            label: 'Densidad Obras (2025)', 
+            type: 'gradient',     
+            color: 'linear-gradient(to right, blue, cyan, lime, yellow, red)' 
+        },
+        { 
             layer: capas.faismun2025, 
-            label: 'Obra 2025', 
+            label: 'FAISMUN 2025', 
             type: 'line',     
-            color: '#ce0cae'  // Magenta
+            color: '#ce0cae'  
+        },
+        { 
+            layer: capas.pim2025, 
+            label: 'PIM 2025', 
+            type: 'circle',     
+            color: '#00897B'  
+        },
+        { 
+            layer: capas.pavimentacion, 
+            label: 'Pavimentación (18-25)', 
+            type: 'line',     
+            color: '#495057'  
         },
         { 
             layer: capas.faismun2024, 
@@ -45,9 +63,8 @@ export function initLegend(map, capas) {
         { 
             layer: capas.zap, 
             label: 'Zonas Atención (ZAP)', 
-            // TIPO NUEVO: CONTORNO (HUECO) 
             type: 'polygon-outline', 
-            color: '#FF6600'  // Naranja
+            color: '#FF6600'  
         },
         { 
             layer: capas.manzanas, 
@@ -78,9 +95,9 @@ export function initLegend(map, capas) {
             if (item.layer && map.hasLayer(item.layer)) {
                 visibleCount++;
                 html += `
-                    <div class="legend-item">
+                    <div class="legend-item" style="margin-bottom: 6px; display: flex; align-items: center;">
                         ${getSymbolHTML(item)}
-                        <span>${item.label}</span>
+                        <span style="font-size: 12px; color: #333; line-height: 1.2;">${item.label}</span>
                     </div>
                 `;
             }
@@ -105,12 +122,13 @@ function getSymbolHTML(item) {
     } else if (item.type === 'line-dashed') {
         style = `border-top: 2px dashed ${item.color}; height: 0px; width: 18px;`;
     } else if (item.type === 'polygon') {
-        // Cuadrito relleno normal
         style = `background-color: ${item.color}; opacity: 0.6; border: 1px solid ${item.color}; width: 14px; height: 14px;`;
     } else if (item.type === 'polygon-outline') {
-        // CUADRITO HUECO (Transparente con borde) 
         style = `background-color: transparent; border: 2px solid ${item.color}; width: 14px; height: 14px; box-sizing: border-box;`;
+    } else if (item.type === 'gradient') {
+        // TIPO NUEVO: GRADIENTE (MAPA DE CALOR)
+        style = `background: ${item.color}; width: 45px; height: 10px; border-radius: 3px; border: 1px solid #aaa;`;
     }
 
-    return `<div style="display: inline-block; margin-right: 8px; vertical-align: middle; ${style}"></div>`;
+    return `<div style="display: inline-block; margin-right: 8px; vertical-align: middle; flex-shrink: 0; ${style}"></div>`;
 }
