@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/right-sidebar.css">
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.32.0/plotly.min.js"></script>
 </head>
 <body style="padding: 0; margin: 0;" >
@@ -28,12 +29,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
     <script type="module">
-        /**
-         * Carga fragmentos HTML desde la carpeta 'components' e inyecta en el contenedor indicado
-         */
         async function loadComponent(file, container, position = 'beforeend') {
             try {
-                // Se agrega el prefijo 'components/' basándonos en tu estructura de directorio
                 const response = await fetch(`components/${file}`); 
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status} en ${file}`);
                 const html = await response.text();
@@ -51,26 +48,21 @@
             const container = document.getElementById('app-container');
             const loaderWrapper = document.getElementById('loader-wrapper');
 
-            // 1. Cargar el loader (Overlay de espera)
             await loadComponent('loader.html', loaderWrapper);
             
-            // 2. Cargar la estructura base de la interfaz
             await loadComponent('header.html', container);
             await loadComponent('sidebar.html', container);
-            await loadComponent('main_content.html', container); // Este genera el div 'map-container'
+            await loadComponent('main_content.html', container); 
             await loadComponent('footer.html', container);
             
-            // 3. Cargar componentes flotantes (Modales y Manuales)
             await loadComponent('modals.html', document.body);
             await loadComponent('manual.html', document.body);
             await loadComponent('login.html', document.body); 
 
             try {
-                // 4. Importar e iniciar la lógica de la aplicación (Leaflet, Capas, Dashboards)
                 const { iniciarVisop } = await import('./js/app.js');
                 await iniciarVisop(); 
 
-                // 5. Finalizar y remover el loader si todo cargó correctamente
                 const overlay = document.getElementById('loading-overlay');
                 if (overlay) {
                     overlay.style.opacity = '0';

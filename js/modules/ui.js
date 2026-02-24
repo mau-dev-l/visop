@@ -1,10 +1,11 @@
 // frontend/js/modules/ui.js
-// Este módulo conecta los interruptores (switches) del HTML con las capas del Mapa
+// Este modulo conecta los interruptores (switches) del HTML con las capas del Mapa
 
 export function setupSidebarControls(map, capas) {
     console.log("Configurando controles del Sidebar...");
 
     const controles = {
+        'checkMapaCalor': capas.mapaCalor, // <--- NUEVA CAPA DE CALOR
         'checkFAISMUN2025': capas.faismun2025, 
         'checkFAISMUN': capas.faismun2024,
         'checkFAISMUNLineas': capas.faismunLineas,
@@ -18,31 +19,26 @@ export function setupSidebarControls(map, capas) {
         'checkParques': capas.parques_mun,
         'checkRutas': capas.Rutas_Tuxtla,
         'checkVialidades': capas.vialidades,
-        'checkPavimentacion': capas.pavimentacion // <--- NUEVA ASIGNACIÓN
+        'checkPavimentacion': capas.pavimentacion
     };
 
-    // 1. Apagar el switch maestro "Todas"
     const checkAllFais = document.getElementById('checkFAISMUN_All');
     if (checkAllFais) {
         checkAllFais.checked = false; 
     }
 
-    // 2. Recorrer cada control
     for (const [idCheckbox, capa] of Object.entries(controles)) {
         const checkbox = document.getElementById(idCheckbox);
 
         if (checkbox && capa) {
             
-            // --- REINICIO FORZADO ---
             if (!checkbox.checked && map.hasLayer(capa)) {
                 map.removeLayer(capa);
             }
             if (checkbox.checked && !map.hasLayer(capa)) {
                 map.addLayer(capa);
             }
-            // ------------------------
 
-            // Escuchar cambios (Click del usuario)
             checkbox.addEventListener('change', (e) => {
                 if (e.target.checked) {
                     map.addLayer(capa);
@@ -53,18 +49,15 @@ export function setupSidebarControls(map, capas) {
                 }
             });
 
-            // Sincronización Inversa (Si se quita desde el control nativo)
             map.on('layeradd layerremove', () => {
                 checkbox.checked = map.hasLayer(capa);
             });
         }
     }
     
-    // Lógica del Botón Maestro "FAISMUN (Todas)"
     if (checkAllFais) {
         checkAllFais.addEventListener('change', (e) => {
             const estado = e.target.checked;
-            // Disparamos el evento click en los hijos para reciclar la lógica
             const hijos = ['checkFAISMUN2025', 'checkFAISMUN', 'checkFAISMUNLineas', 'checkFAISMUN2023', 'checkPIM2025'];
             hijos.forEach(id => {
                 const cb = document.getElementById(id);
