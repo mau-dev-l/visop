@@ -87,8 +87,8 @@ export function crearPopupPIM(p) {
     const unidadRes = p['Unidad Res'] || '-';
     const unidadOp = p['Unidad R_1'] || '-';
     
-    const coordInicial = p['inicial'] || p['INICIAL'] || 'S/D';
-    const coordFinal = p['final'] || p['FINAL'] || 'S/D';
+    const coordInicial = p['Inicial'] || p['INICIAL'] || 'S/D';
+    const coordFinal = p['Final'] || p['FINAL'] || 'S/D';
     
     let montoFormat = '$0.00';
     try { 

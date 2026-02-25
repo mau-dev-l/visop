@@ -27,8 +27,8 @@ export function initLegend(map, capas) {
         { 
             layer: capas.pim2025, 
             label: 'PIM 2025', 
-            type: 'circle',     
-            color: '#00897B'  
+            type: 'line',     
+            color: '#37609a'  
         },
         { 
             layer: capas.pavimentacion, 

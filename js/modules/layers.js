@@ -75,7 +75,7 @@ export async function cargarCapasBackend() {
             extraerPuntosCalor(dPim, 'PIM 2025'); 
 
             const pimWfs = L.geoJSON(dPim, {
-                pointToLayer: (f, latlng) => L.circleMarker(latlng, { radius: 12, opacity: 0, fillOpacity: 0, color: 'transparent', weight: 0 }),
+                pointToLayer: (f, latlng) => L.circleMarker(latlng, { radius: 12, opacity: 0, fillOpacity: 0, color: '#377e9a', weight: 0 }),
                 onEachFeature: (feature, layer) => { layer.bindPopup(crearPopupPIM(feature.properties)); }
             });
 
@@ -90,37 +90,37 @@ export async function cargarCapasBackend() {
         console.error("Error cargando PIM 2025:", error);
     }
 
-    const dPavimentacion = await fetchWFS('pavimentacion_2018_2025');
-    if (dPavimentacion?.features) {
-        capas.pavimentacion = L.geoJSON(dPavimentacion, {
-            style: { color: '#495057', weight: 4, opacity: 0.85 },
-            onEachFeature: popupPavimentacion
-        });
-    }
+    // const dPavimentacion = await fetchWFS('pavimentacion_2018_2025');
+    // if (dPavimentacion?.features) {
+    //     capas.pavimentacion = L.geoJSON(dPavimentacion, {
+    //         style: { color: '#495057', weight: 4, opacity: 0.85 },
+    //         onEachFeature: popupPavimentacion
+    //     });
+    // }
 
-    const dF24 = await fetchWFS('faismun_2024_geo');
-    if (dF24?.features) {
-        capas.faismun2024 = L.geoJSON(dF24, {
-            pointToLayer: (f, latlng) => L.marker(latlng, { icon: iconoFAISMUN }),
-            onEachFeature: popupFAISMUN
-        });
-    }
+    // const dF24 = await fetchWFS('faismun_2024_geo');
+    // if (dF24?.features) {
+    //     capas.faismun2024 = L.geoJSON(dF24, {
+    //         pointToLayer: (f, latlng) => L.marker(latlng, { icon: iconoFAISMUN }),
+    //         onEachFeature: popupFAISMUN
+    //     });
+    // }
 
-    const dF24Lin = await fetchWFS('faismun_2024_lineas');
-    if (dF24Lin?.features) {
-        capas.faismunLineas = L.geoJSON(dF24Lin, {
-            style: estiloLineas24,
-            onEachFeature: popupFAISMUNLineas 
-        });
-    }
+    // const dF24Lin = await fetchWFS('faismun_2024_lineas');
+    // if (dF24Lin?.features) {
+    //     capas.faismunLineas = L.geoJSON(dF24Lin, {
+    //         style: estiloLineas24,
+    //         onEachFeature: popupFAISMUNLineas 
+    //     });
+    // }
 
-    const dF23 = await fetchWFS('faismun_2023_geo');
-    if (dF23?.features) {
-        capas.faismun2023 = L.geoJSON(dF23, {
-            pointToLayer: (f, latlng) => L.marker(latlng, { icon: iconoFAISMUN23 }),
-            onEachFeature: popupFAISMUN
-        });
-    }
+    // const dF23 = await fetchWFS('faismun_2023_geo');
+    // if (dF23?.features) {
+    //     capas.faismun2023 = L.geoJSON(dF23, {
+    //         pointToLayer: (f, latlng) => L.marker(latlng, { icon: iconoFAISMUN23 }),
+    //         onEachFeature: popupFAISMUN
+    //     });
+    // }
 
     const dCol = await fetchWFS('101_COL_H_AYUNTAMIENTO_2023_geo');
     if (dCol?.features) {
@@ -149,15 +149,15 @@ export async function cargarCapasBackend() {
     // ============================================================
     //  CAPA GENERADA: MAPA DE CALOR ESTRICTO (FAISMUN Y PIM 2025)
     // ============================================================
-    if (typeof L.heatLayer !== 'undefined') {
-        capas.mapaCalor = L.heatLayer(puntosParaCalor, {
-            radius: 20,
-            blur: 15,
-            maxZoom: 15,
-            gradient: { 0.4: 'blue', 0.6: 'cyan', 0.7: 'lime', 0.8: 'yellow', 1.0: 'red' }
-        });
-        console.log(`Capa Mapa de Calor lista. Total exclusivo de centroides 2025 procesados: ${puntosParaCalor.length}`);
-    }
+    // if (typeof L.heatLayer !== 'undefined') {
+    //     capas.mapaCalor = L.heatLayer(puntosParaCalor, {
+    //         radius: 20,
+    //         blur: 15,
+    //         maxZoom: 15,
+    //         gradient: { 0.4: 'blue', 0.6: 'cyan', 0.7: 'lime', 0.8: 'yellow', 1.0: 'red' }
+    //     });
+    //     console.log(`Capa Mapa de Calor lista. Total exclusivo de centroides 2025 procesados: ${puntosParaCalor.length}`);
+    // }
 
     // ============================================================
     //  GRUPO 2: CAPAS WMS (Mapas de imagen estaticos)

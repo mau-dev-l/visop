@@ -13,10 +13,10 @@ import { initGallery } from './modules/gallery.js';
 import { initSearchControls } from './modules/searchControl.js';
 import { setupColoniaSearch, setupCoordLogic } from './modules/searchLogic.js';
 import { setupSidebarToggle } from './modules/uiLayout.js';
-import { initAuth } from './modules/auth.js'; 
+// import { initAuth } from './modules/auth.js'; 
 
 // --- NUEVO MÓDULO DE TABLA DE ATRIBUTOS ---
-import { initAttributeTable } from './modules/attributeTable.js';
+// import { initAttributeTable } from './modules/attributeTable.js';
 
 /**
  * Lógica para alternar entre Modo Claro y Oscuro
@@ -97,7 +97,7 @@ export async function iniciarVisop() {
         setupGPS(map);
 
         // 12. Inicializar Sistema de Autenticación y Edición
-        initAuth(map, capasOverlay);
+        // initAuth(map, capasOverlay);
 
         // 13. Configurar el Modo Oscuro
         // setupDarkMode();
@@ -110,8 +110,8 @@ export async function iniciarVisop() {
             });
         }
 
-        // 15. Iniciar Tabla de Atributos (Sidebar Derecho)
-        initAttributeTable(map, capasOverlay);
+        // // 15. Iniciar Tabla de Atributos (Sidebar Derecho)
+        // initAttributeTable(map, capasOverlay);
 
         console.log("VISOP 2.0: Módulos de consulta y edición listos.");
         return true;

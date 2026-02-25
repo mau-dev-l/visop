@@ -5,11 +5,11 @@ export function setupSidebarControls(map, capas) {
     console.log("Configurando controles del Sidebar...");
 
     const controles = {
-        'checkMapaCalor': capas.mapaCalor, // <--- NUEVA CAPA DE CALOR
+        // 'checkMapaCalor': capas.mapaCalor, // <--- NUEVA CAPA DE CALOR
         'checkFAISMUN2025': capas.faismun2025, 
-        'checkFAISMUN': capas.faismun2024,
-        'checkFAISMUNLineas': capas.faismunLineas,
-        'checkFAISMUN2023': capas.faismun2023,
+        // 'checkFAISMUN': capas.faismun2024,
+        // 'checkFAISMUNLineas': capas.faismunLineas,
+        // 'checkFAISMUN2023': capas.faismun2023,
         'checkColonias': capas.colonias,
         'checkZAP': capas.zap,
         'checkManzanas': capas.manzanas,
@@ -18,8 +18,8 @@ export function setupSidebarControls(map, capas) {
         'checkPIM2025': capas.pim2025,
         'checkParques': capas.parques_mun,
         'checkRutas': capas.Rutas_Tuxtla,
-        'checkVialidades': capas.vialidades,
-        'checkPavimentacion': capas.pavimentacion
+        'checkVialidades': capas.vialidades
+        // 'checkPavimentacion': capas.pavimentacion
     };
 
     const checkAllFais = document.getElementById('checkFAISMUN_All');
